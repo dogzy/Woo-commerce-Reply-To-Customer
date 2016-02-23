@@ -1,0 +1,18 @@
+<?php
+   /*
+   New Order Reply to Customer
+   */
+    
+//This plugin adds a "reply-to" on New Order Emails so that the customer can be replied to directly rather than the default reply to admin
+ 
+add_filter( 'woocommerce_email_headers', 'mycustom_headers_filter_function', 10, 3);
+ 
+function mycustom_headers_filter_function( $headers, $object, $order ) {
+    if ($object == 'new_order') {
+        $headers .= 'Reply-to: '.$order->billing_first_name.' '.$order->billing_last_name.' <'.$order->billing_email.'>' . "\r\n";
+    }
+ 
+    return $headers;
+}
+ 
+?>
